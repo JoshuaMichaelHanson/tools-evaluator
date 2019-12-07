@@ -103,5 +103,5 @@ function calculateScore() {
     } else {
         msg = 'Unkown error';
     }
-    $('#score').text('Score ' + score);
+    $('#score').text(score);
 }
