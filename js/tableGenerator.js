@@ -1,11 +1,10 @@
-/**
- * PR1 Make the data correct, pull request with comments, approved!
- * PR2 Customize screen (CSS, Submit Button)
- * PR3 Hook up Submit Button with grade - do not indicate what is right or wrong
- * PR4 Add web hosting and move the data to a database access via AJAX or Fetch API -- need PHP, Pyton, Java, Node, whatever works :)
- * PR5 Add screens to add more data, more interactive, more usefull - rest of assignment...
- * PR6 Add custom features
- */
+// * PR1 Make the data correct, pull request with comments, approved!
+// * PR2 Customize screen (CSS, Submit Button)
+// * PR3 Hook up Submit Button with grade - do not indicate what is right or wrong
+// * PR4 Add web hosting and move the data to a database access via AJAX or Fetch API -- need PHP, Pyton, Java, Node, whatever works :)
+// * PR5 Add screens to add more data, more interactive, more usefull - rest of assignment...
+// * PR6 Add custom features
+// */
 // globals bad but...
 let correctAnswersArray = [];
 let studentAnswersArray = [];
@@ -13,7 +12,9 @@ let orderedCategoriesArray;
 let orderedToolsArray;
 
 function buildTable(params) {
-    // TODO: Get data via AJAX or fetch API
+    // need to json-is
+    params = JSON.parse(params);
+    console.log('Params ', params);
     let $table = $('<table/>');
     let categories = params.categories; // width
     let tools = params.tools;           // height
@@ -61,19 +62,28 @@ function buildTable(params) {
 }
 
 $(function() {
-    console.log('Data', data);
+    // console.log('Data', data);
     // TODO: Get data via AJAX or fetch API
-    buildTable(data);
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          // document.getElementById("demo").innerHTML = this.responseText;
+          console.log('Returned Data ', this.responseText);
+          buildTable(this.responseText);
+        }
+      };
+      xhttp.open("GET", "http://ec2-34-203-191-5.compute-1.amazonaws.com/get_tool_json_data.php", true);
+      xhttp.send(); 
 });
 
 function evaluateCell(width, height, name) {
     console.log('Evalueateing', studentAnswersArray);
     console.log('Evaluate width ', width, ' height ', height, name);
-    const indexToRemove = studentAnswersArray.indexOf(orderedToolsArray[height].name + '-' + orderedCategoriesArray[width].name)
+    const indexToRemove = studentAnswersArray.indexOf(orderedToolsArray[height].name + '-' + orderedCategoriesArray[width].name);
     $('#cell' + width + height).toggleClass('black');
     if (indexToRemove !== -1) {
         // remove it
-        console.log('Removing ', indexToRemove)
+        console.log('Removing ', indexToRemove);
         studentAnswersArray.splice(indexToRemove, 1);
     } else {
         // add it
