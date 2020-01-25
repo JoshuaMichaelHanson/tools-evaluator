@@ -1,10 +1,10 @@
-// * PR1 Make the data correct, pull request with comments, approved!
-// * PR2 Customize screen (CSS, Submit Button)
-// * PR3 Hook up Submit Button with grade - do not indicate what is right or wrong
-// * PR4 Add web hosting and move the data to a database access via AJAX or Fetch API -- need PHP, Pyton, Java, Node, whatever works :)
-// * PR5 Add screens to add more data, more interactive, more usefull - rest of assignment...
-// * PR6 Add custom features
-// */
+/** * PR1 Make the data correct, pull request with comments, approved!
+    * PR2 Customize screen (CSS, Submit Button)
+    * PR3 Hook up Submit Button with grade - do not indicate what is right or wrong
+    * PR4 Add web hosting and move the data to a database access via AJAX or Fetch API -- need PHP, Pyton, Java, Node, whatever works :)
+    * PR5 Add screens to add more data, more interactive, more usefull - rest of assignment...
+    * PR6 Add custom features
+*/
 // globals bad but...
 let correctAnswersArray = [];
 let studentAnswersArray = [];
@@ -76,7 +76,9 @@ $(function() {
       xhttp.send(); 
 });
 
-function evaluateCell(width, height, name) {
+// this function is called from clicking a cell
+// tell JsHint to ignore
+function evaluateCell(width, height, name) { // jshint ignore:line
     console.log('Evalueateing', studentAnswersArray);
     console.log('Evaluate width ', width, ' height ', height, name);
     const indexToRemove = studentAnswersArray.indexOf(orderedToolsArray[height].name + '-' + orderedCategoriesArray[width].name);
